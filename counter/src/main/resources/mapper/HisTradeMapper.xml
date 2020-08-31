@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flouis.counter.dao.HisTradeMapper">
+	<resultMap id="BaseResultMap" type="com.flouis.counter.entity.HisTrade">
+		<id column="id" jdbcType="BIGINT" property="id"/>
+		<result column="uid" jdbcType="BIGINT" property="uid"/>
+		<result column="code" jdbcType="VARCHAR" property="code"/>
+		<result column="direction" jdbcType="INTEGER" property="direction"/>
+		<result column="price" jdbcType="DECIMAL" property="price"/>
+		<result column="count" jdbcType="INTEGER" property="count"/>
+		<result column="orderid" jdbcType="BIGINT" property="orderid"/>
+		<result column="tradeid" jdbcType="BIGINT" property="tradeid"/>
+		<result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, uid, code, direction, price, count, orderid, tradeid, createtime
+	</sql>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/>
+		from t_his_trade
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_his_trade
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.flouis.counter.entity.HisTrade"
+			useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into t_his_trade
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uid != null">
+				uid,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="direction != null">
+				direction,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="count != null">
+				count,
+			</if>
+			<if test="orderid != null">
+				orderid,
+			</if>
+			<if test="tradeid != null">
+				tradeid,
+			</if>
+				createtime
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uid != null">
+				#{uid,jdbcType=BIGINT},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="direction != null">
+				#{direction,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DECIMAL},
+			</if>
+			<if test="count != null">
+				#{count,jdbcType=INTEGER},
+			</if>
+			<if test="orderid != null">
+				#{orderid,jdbcType=BIGINT},
+			</if>
+			<if test="tradeid != null">
+				#{tradeid,jdbcType=BIGINT},
+			</if>
+				now()
+		</trim>
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.flouis.counter.entity.HisTrade">
+		update t_his_trade
+		<set>
+			<if test="uid != null">
+				uid = #{uid,jdbcType=BIGINT},
+			</if>
+			<if test="code != null">
+				code = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="direction != null">
+				direction = #{direction,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="count != null">
+				count = #{count,jdbcType=INTEGER},
+			</if>
+			<if test="orderid != null">
+				orderid = #{orderid,jdbcType=BIGINT},
+			</if>
+			<if test="tradeid != null">
+				tradeid = #{tradeid,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+</mapper>

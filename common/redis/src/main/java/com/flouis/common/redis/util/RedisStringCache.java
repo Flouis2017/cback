@@ -51,7 +51,7 @@ public class RedisStringCache {
 	}
 
 	// 删除
-	public void remove(String key, String value, CacheType cacheType){
+	public void remove(String key, CacheType cacheType){
 		this.getStringRedisTemplate().delete(cacheType.getType() + key);
 	}
 

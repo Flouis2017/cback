@@ -39,4 +39,8 @@ public class JsonResult {
 		return new JsonResult(false, ResultCode.FAIL.getCode(), message, null);
 	}
 
+	public static JsonResult fail(Integer code, String message){
+		return new JsonResult(false, code, message, null);
+	}
+
 }
