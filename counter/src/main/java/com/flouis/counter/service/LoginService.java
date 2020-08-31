@@ -48,30 +48,30 @@ public class LoginService {
 	}
 
 	/* 登录业务逻辑 */
-	public Account login(Long uid, String password, String captcha, String captchaId) throws BusinessException {
+	public Account login(String uid, String password, String captcha, String captchaId) throws BusinessException {
 
 		// 入参合法校验
 		if (StringUtils.isAnyBlank(password, captcha, captchaId) || uid == null){
-			throw new BusinessException(ResultCode.LOGIN_INFO_BLANK.getCode(), ResultCode.LOGIN_INFO_BLANK.getMessage());
+			throw new BusinessException(ResultCode.LOGIN_INFO_BLANK);
 		}
 
 		// 校验验证码
 		String captchaFromRedis = this.redisStringCache.get(captchaId, CacheType.CAPTCHA);
 		if (StringUtils.isEmpty(captchaFromRedis)){
-			throw new BusinessException(ResultCode.CODE_EXPIRED.getCode(), ResultCode.CODE_EXPIRED.getMessage());
+			throw new BusinessException(ResultCode.CODE_EXPIRED);
 		}
 		if (!captcha.equalsIgnoreCase(captchaFromRedis)){
-			throw new BusinessException(ResultCode.CODE_ERROR.getCode(), ResultCode.CODE_ERROR.getMessage());
+			throw new BusinessException(ResultCode.CODE_ERROR);
 		}
 		this.redisStringCache.remove(captchaId, CacheType.CAPTCHA);
 
 		// 校验用户名和密码
 		User user = this.userMapper.queryUserByUid(uid);
 		if (user == null){
-			throw new BusinessException(ResultCode.NO_USER.getCode(), ResultCode.NO_USER.getMessage());
+			throw new BusinessException(ResultCode.NO_USER);
 		}
 		if (!password.equals(user.getPassword())){
-			throw new BusinessException(ResultCode.PWD_ERROR.getCode(), ResultCode.PWD_ERROR.getMessage());
+			throw new BusinessException(ResultCode.PWD_ERROR);
 		}
 
 		// 生产token并将<token: Account-json格式数据>写入redis缓存
@@ -95,6 +95,11 @@ public class LoginService {
 		} else {
 			return false;
 		}
+	}
+
+	/* 登出 */
+	public void logout(String token) {
+		this.redisStringCache.remove(token, CacheType.ACCOUNT);
 	}
 
 	/*public static void main(String[] args) {

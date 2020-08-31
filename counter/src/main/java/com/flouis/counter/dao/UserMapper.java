@@ -14,5 +14,5 @@ public interface UserMapper {
 
     User queryUser(Account account);
 
-    User queryUserByUid(Long uid);
+    User queryUserByUid(String uid);
 }

@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Account {
 
-	private Long uid;
+	private String uid;
 	private String password;
 
 	private String token;

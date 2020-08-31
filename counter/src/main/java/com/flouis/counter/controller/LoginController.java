@@ -24,8 +24,8 @@ public class LoginController {
 	}
 
 	@PostMapping("/doLogin")
-	public JsonResult login() throws Exception{
-		return JsonResult.success(this.loginService.login(100L, "asdfasf", "asdfsa", "1215"));
+	public JsonResult login(String uid, String password, String captcha, String captchaId) throws Exception{
+		return JsonResult.success(this.loginService.login(uid, password, captcha, captchaId));
 	}
 
 	@RequestMapping("/checkToken")
@@ -38,5 +38,10 @@ public class LoginController {
 		return JsonResult.fail(ResultCode.NEED_LOGIN.getCode(), ResultCode.NEED_LOGIN.getMessage());
 	}
 
+	@RequestMapping("/logout")
+	public JsonResult logout(String token){
+		this.loginService.logout(token);
+		return JsonResult.success();
+	}
 
 }

@@ -6,7 +6,7 @@ import java.util.Date;
 public class User {
     private Long id;
 
-    private Long uid;
+    private String uid;
 
     private String password;
 
@@ -24,11 +24,11 @@ public class User {
         this.id = id;
     }
 
-    public Long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 

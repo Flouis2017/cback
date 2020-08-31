@@ -15,7 +15,7 @@ public class CounterExceptionHandler {
 
 	@ExceptionHandler(BusinessException.class)
 	public JsonResult handleBusinessException(BusinessException be){
-		return JsonResult.fail(be.getExceptionCode(), be.getMessage());
+		return JsonResult.success(be.getExceptionCode(), be.getExceptionMsg());
 	}
 
 }
