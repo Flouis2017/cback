@@ -9,8 +9,9 @@ public enum ResultCode {
 
 	TOKEN_EXPIRED(3003, "登录超时"),
 
-	NO_USER(3005, "用户账号不存在"),
+	NO_USER(3005, "账号不存在"),
 	PWD_ERROR(3006, "密码出错"),
+	OLD_PWD_ERROR(3007, "旧密码出错"),
 
 	LOGIN_INFO_BLANK(3010, "账号/密码/验证码不可为空"),
 	LOGIN_ERROR(3011, "账号或密码出错"),
