@@ -9,6 +9,7 @@ import com.flouis.counter.vo.TransferVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 
 @Service
 public class TransferService {
@@ -34,10 +35,14 @@ public class TransferService {
 		upOne.setId(user.getId());
 		// 将用户的余额进行增减
 		Integer type = vo.getType();
+		BigDecimal balance = user.getBalance();
 		if (type.equals(0)){
-			upOne.setBalance(upOne.getBalance().subtract(vo.getMoney()));
+			if (balance.compareTo(vo.getMoney()) < 0){
+				throw new BusinessException(ResultCode.NO_ENOUGH_BALANCE);
+			}
+			upOne.setBalance(balance.subtract(vo.getMoney()));
 		} else {
-			upOne.setBalance(upOne.getBalance().add(vo.getMoney()));
+			upOne.setBalance(balance.add(vo.getMoney()));
 		}
 		this.userMapper.updateByPrimaryKeySelective(upOne);
 

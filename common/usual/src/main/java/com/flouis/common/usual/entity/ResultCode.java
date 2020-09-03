@@ -19,7 +19,9 @@ public enum ResultCode {
 	NEED_LOGIN(3020, "请先登录"),
 	NO_ACCESS(3021, "权限不足"),
 
-	FAIL(4000, "服务器异常，请求失败！");
+	FAIL(4000, "服务器异常，请求失败！"),
+
+	NO_ENOUGH_BALANCE(4080, "余额不足！");
 
 	private Integer code;
 	private String message;

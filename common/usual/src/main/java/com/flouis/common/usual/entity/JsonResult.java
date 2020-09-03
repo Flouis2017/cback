@@ -35,6 +35,10 @@ public class JsonResult {
 		return new JsonResult(true, code, message, null);
 	}
 
+	public static JsonResult success(String message){
+		return new JsonResult(true, ResultCode.SUCCESS.getCode(), message, null);
+	}
+
 	public static JsonResult fail(){
 		return new JsonResult(false, ResultCode.FAIL.getCode(), ResultCode.FAIL.getMessage(), null);
 	}

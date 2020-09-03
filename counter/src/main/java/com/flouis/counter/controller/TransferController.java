@@ -20,7 +20,7 @@ public class TransferController {
 	@PostMapping("/doTransfer")
 	public JsonResult doTransfer(TransferVo vo) throws BusinessException {
 		this.transferService.doTransfer(vo);
-		return JsonResult.success();
+		return JsonResult.success("转账成功");
 	}
 
 }
