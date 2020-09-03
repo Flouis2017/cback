@@ -3,8 +3,8 @@
 <mapper namespace="com.flouis.counter.dao.TransferMapper">
 	<resultMap id="BaseResultMap" type="com.flouis.counter.entity.Transfer">
 		<id column="id" jdbcType="BIGINT" property="id"/>
-		<result column="uid" jdbcType="BIGINT" property="uid"/>
-		<result column="bank" jdbcType="VARCHAR" property="bank"/>
+		<result column="uid" jdbcType="VARCHAR" property="uid"/>
+		<result column="bank" jdbcType="INTEGER" property="bank"/>
 		<result column="type" jdbcType="INTEGER" property="type"/>
 		<result column="moneytype" jdbcType="INTEGER" property="moneytype"/>
 		<result column="money" jdbcType="DECIMAL" property="money"/>
@@ -49,10 +49,10 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="uid != null">
-				#{uid,jdbcType=BIGINT},
+				#{uid,jdbcType=VARCHAR},
 			</if>
 			<if test="bank != null">
-				#{bank,jdbcType=VARCHAR},
+				#{bank,jdbcType=INTEGER},
 			</if>
 			<if test="type != null">
 				#{type,jdbcType=INTEGER},
@@ -74,10 +74,10 @@
 		update t_transfer
 		<set>
 			<if test="uid != null">
-				uid = #{uid,jdbcType=BIGINT},
+				uid = #{uid,jdbcType=VARCHAR},
 			</if>
 			<if test="bank != null">
-				bank = #{bank,jdbcType=VARCHAR},
+				bank = #{bank,jdbcType=INTEGER},
 			</if>
 			<if test="type != null">
 				type = #{type,jdbcType=INTEGER},

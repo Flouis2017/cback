@@ -6,9 +6,9 @@ import java.util.Date;
 public class Transfer {
     private Long id;
 
-    private Long uid;
+    private String uid;
 
-    private String bank;
+    private Integer bank;
 
     private Integer type;
 
@@ -26,20 +26,20 @@ public class Transfer {
         this.id = id;
     }
 
-    public Long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
-    public String getBank() {
+    public Integer getBank() {
         return bank;
     }
 
-    public void setBank(String bank) {
-        this.bank = bank == null ? null : bank.trim();
+    public void setBank(Integer bank) {
+        this.bank = bank;
     }
 
     public Integer getType() {
