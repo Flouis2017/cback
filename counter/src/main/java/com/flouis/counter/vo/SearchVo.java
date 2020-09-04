@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SearchVo {
 
-	private int page = 1;
-	private int size = 10;
+	private int currentPage = 1;
+	private int pageSize = 10;
 
 	private String order = "desc";
 

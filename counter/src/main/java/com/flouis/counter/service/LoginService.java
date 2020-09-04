@@ -76,9 +76,10 @@ public class LoginService {
 
 		// 生产token并将<token: Account-json格式数据>写入redis缓存
 		String token = String.valueOf(this.idWorker.nextId());
-		this.redisStringCache.set(token, JsonUtil.toJson(user), CacheType.ACCOUNT);
+		Account account = new Account(uid, null, token);
+		this.redisStringCache.set(token, JsonUtil.toJson(account), CacheType.ACCOUNT);
 
-		return new Account(uid, null, token);
+		return account;
 	}
 
 	/* 校验token：如果存在重新写入redis，如果不存在直接返回false */

@@ -7,6 +7,8 @@
 		<result column="code" jdbcType="VARCHAR" property="code"/>
 		<result column="cost" jdbcType="DECIMAL" property="cost"/>
 		<result column="count" jdbcType="INTEGER" property="count"/>
+
+		<result column="name" jdbcType="VARCHAR" property="name"/>
 	</resultMap>
 
 	<sql id="Base_Column_List">
@@ -78,5 +80,23 @@
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+
+	<select id="queryPosiListByPage" parameterType="com.flouis.counter.vo.DashboardVo" resultMap="BaseResultMap">
+		SELECT tp.code, tp.count, tp.cost,
+		(SELECT ts.name FROM t_stock ts WHERE ts.code = tp.code) AS `name`
+		FROM t_posi tp WHERE tp.uid = #{uid}
+		ORDER BY tp.id ${order}
+		limit ${currentPage}, ${pageSize}
+	</select>
+	<select id="queryPosiTotal" parameterType="com.flouis.counter.vo.DashboardVo" resultType="java.lang.Integer">
+		SELECT COUNT(tp.id) AS total
+		FROM t_posi tp WHERE tp.uid = #{uid}
+	</select>
+	<select id="queryPosiList" parameterType="com.flouis.counter.vo.DashboardVo" resultMap="BaseResultMap">
+		SELECT tp.code, tp.count, tp.cost,
+		(SELECT ts.name FROM t_stock ts WHERE ts.code = tp.code) AS `name`
+		FROM t_posi tp WHERE tp.uid = #{uid}
+		ORDER BY tp.id ${order}
+	</select>
 
 </mapper>
