@@ -37,6 +37,9 @@ public class RedisStringCache {
 			case ORDER:
 				expireTime = this.getOrderExpireTime();
 				break;
+			case STOCK:
+				expireTime = 86400;
+				break;
 			default:
 				expireTime = 120;
 		}

@@ -43,7 +43,13 @@ public class ApiController {
 		return JsonResult.success(this.apiService.posiData(vo));
 	}
 
-
+	/**
+	 * @description 股票下拉搜索选择框数据
+	 */
+	@PostMapping("/stockSelect")
+	public JsonResult stockSelect(String uid, String key){
+		return JsonResult.success(this.apiService.stockSelect(uid, key));
+	}
 
 
 }

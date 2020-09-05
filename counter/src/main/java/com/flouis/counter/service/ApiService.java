@@ -4,12 +4,14 @@ import com.flouis.common.redis.util.CacheType;
 import com.flouis.common.redis.util.RedisStringCache;
 import com.flouis.common.usual.entity.ResultCode;
 import com.flouis.common.usual.util.JsonUtil;
+import com.flouis.counter.cache.StockCache;
 import com.flouis.counter.dao.PosiMapper;
 import com.flouis.counter.dao.UserMapper;
 import com.flouis.counter.entity.Posi;
 import com.flouis.counter.entity.User;
 import com.flouis.counter.exception.BusinessException;
 import com.flouis.counter.vo.DashboardVo;
+import com.flouis.counter.vo.StockInfo;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +32,9 @@ public class ApiService {
 
 	@Resource
 	private PosiMapper posiMapper;
+
+	@Resource
+	private StockCache stockCache;
 
 	public Map<String, Object> queryBalance(DashboardVo vo) throws BusinessException{
 		User user = this.userMapper.queryUserByUid(vo.getUid());
@@ -84,4 +89,7 @@ public class ApiService {
 		return resMap;
 	}
 
+	public List<StockInfo> stockSelect(String uid, String key) {
+		return this.stockCache.getStocks(uid, key);
+	}
 }

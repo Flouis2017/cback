@@ -2,6 +2,8 @@ package com.flouis.counter.dao;
 
 import com.flouis.counter.entity.Stock;
 
+import java.util.List;
+
 public interface StockMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -10,4 +12,6 @@ public interface StockMapper {
     Stock selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(Stock record);
+
+	List<Stock> queryAll();
 }

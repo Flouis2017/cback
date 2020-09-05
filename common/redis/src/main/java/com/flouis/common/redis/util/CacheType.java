@@ -10,7 +10,8 @@ public enum CacheType {
 
     TRADE("trade:"),
 
-    POSI("posi:");
+    POSI("posi:"),
+    STOCK("stock:");
 
     private String type;
 
