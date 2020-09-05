@@ -4,6 +4,7 @@ import com.flouis.common.usual.entity.JsonResult;
 import com.flouis.counter.exception.BusinessException;
 import com.flouis.counter.service.ApiService;
 import com.flouis.counter.vo.DashboardVo;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,12 +28,21 @@ public class ApiController {
 	}
 
 	/**
-	 * @description 资金持仓数据
+	 * @description 资金持仓列表
 	 */
 	@RequestMapping("/queryPosiList")
 	public JsonResult queryPosiList(DashboardVo vo) throws BusinessException {
 		return JsonResult.success(this.apiService.queryPosiList(vo));
 	}
+
+	/**
+	 * @description 资金持仓数据——真分页使用
+	 */
+	@PostMapping("/posiData")
+	public JsonResult posiData(DashboardVo vo) throws BusinessException{
+		return JsonResult.success(this.apiService.posiData(vo));
+	}
+
 
 
 

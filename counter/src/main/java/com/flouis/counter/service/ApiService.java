@@ -10,6 +10,7 @@ import com.flouis.counter.entity.Posi;
 import com.flouis.counter.entity.User;
 import com.flouis.counter.exception.BusinessException;
 import com.flouis.counter.vo.DashboardVo;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -30,25 +31,6 @@ public class ApiService {
 	@Resource
 	private PosiMapper posiMapper;
 
-	public List<Posi> queryPosiList(DashboardVo vo) throws BusinessException{
-		String uid = vo.getUid();
-		if (StringUtils.isBlank(uid)){
-			throw new BusinessException(ResultCode.NO_USER);
-		}
-		// 查询redis缓存持仓记录
-		String redisPosi = this.redisStringCache.get(uid, CacheType.POSI);
-		if (StringUtils.isEmpty(redisPosi)){
-			// 数据查询
-			List<Posi> posiList = this.posiMapper.queryPosiList(vo);
-			// 缓存
-			this.redisStringCache.set(uid, JsonUtil.toJson(posiList), CacheType.POSI);
-			return posiList;
-		} else {
-			// 序列化成List<Posi>
-			return JsonUtil.fromJsonArr(redisPosi, Posi.class);
-		}
-	}
-
 	public Map<String, Object> queryBalance(DashboardVo vo) throws BusinessException{
 		User user = this.userMapper.queryUserByUid(vo.getUid());
 		if (user == null){
@@ -58,4 +40,48 @@ public class ApiService {
 		resMap.put("balance", user.getBalance());
 		return resMap;
 	}
+
+	public List<Posi> queryPosiList(DashboardVo vo) throws BusinessException{
+		List<Posi> posiList;
+		String uid = vo.getUid();
+		if (StringUtils.isBlank(uid)){
+			throw new BusinessException(ResultCode.NO_USER);
+		}
+
+		if (vo.getIsRefresh()){
+			posiList = this.posiMapper.queryPosiList(vo);
+			this.redisStringCache.set(uid, JsonUtil.toJson(posiList), CacheType.POSI);
+		} else {
+			// 查询redis缓存持仓记录
+			String redisPosi = this.redisStringCache.get(uid, CacheType.POSI);
+			if (StringUtils.isEmpty(redisPosi)){
+				// 数据查询，然后缓存
+				posiList = this.posiMapper.queryPosiList(vo);
+				this.redisStringCache.set(uid, JsonUtil.toJson(posiList), CacheType.POSI);
+			} else {
+				// 序列化成List<Posi>
+				posiList = JsonUtil.fromJsonArr(redisPosi, Posi.class);
+			}
+		}
+		return posiList;
+	}
+
+	public Map posiData(DashboardVo vo) throws BusinessException{
+		Map resMap = Maps.newHashMap();
+		String uid = vo.getUid();
+		User user = this.userMapper.queryUserByUid(uid);
+		if (user == null){
+			throw new BusinessException(ResultCode.NO_USER);
+		}
+		resMap.put("balance", user.getBalance());
+		// 分页查询数据
+		vo.setCurrentPage(vo.getPageSize() * (vo.getCurrentPage() - 1));
+		List<Posi> posiList = this.posiMapper.queryPosiListByPage(vo);
+		Integer total = this.posiMapper.queryPosiTotal(vo);
+		// 封装结果
+		resMap.put("total", total);
+		resMap.put("posiList", posiList);
+		return resMap;
+	}
+
 }

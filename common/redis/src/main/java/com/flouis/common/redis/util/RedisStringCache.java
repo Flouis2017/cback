@@ -37,10 +37,8 @@ public class RedisStringCache {
 			case ORDER:
 				expireTime = this.getOrderExpireTime();
 				break;
-			case TRADE:
-			case POSI:
 			default:
-				expireTime = 10;
+				expireTime = 120;
 		}
 		this.getStringRedisTemplate().opsForValue().set(cacheType.getType() + key, value, expireTime, TimeUnit.SECONDS);
 	}

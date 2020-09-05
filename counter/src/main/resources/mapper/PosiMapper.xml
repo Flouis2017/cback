@@ -92,6 +92,7 @@
 		SELECT COUNT(tp.id) AS total
 		FROM t_posi tp WHERE tp.uid = #{uid}
 	</select>
+
 	<select id="queryPosiList" parameterType="com.flouis.counter.vo.DashboardVo" resultMap="BaseResultMap">
 		SELECT tp.code, tp.count, tp.cost,
 		(SELECT ts.name FROM t_stock ts WHERE ts.code = tp.code) AS `name`

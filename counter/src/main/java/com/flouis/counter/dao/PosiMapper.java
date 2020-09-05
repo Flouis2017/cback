@@ -16,5 +16,6 @@ public interface PosiMapper {
 
 	List<Posi> queryPosiListByPage(DashboardVo vo);
 	Integer queryPosiTotal(DashboardVo vo);
+
 	List<Posi> queryPosiList(DashboardVo vo);
 }
