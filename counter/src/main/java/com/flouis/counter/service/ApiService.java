@@ -18,6 +18,7 @@ import com.flouis.counter.vo.DashboardVo;
 import com.flouis.counter.vo.OrderVo;
 import com.flouis.counter.vo.StockInfo;
 import com.google.common.collect.Maps;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Log4j2
 public class ApiService {
 
 	@Resource
@@ -113,7 +115,8 @@ public class ApiService {
 		}
 
 		// 委托处理 todo
-
+		orderCmd.setOid(order.getId());
+		log.info(orderCmd.toString());
 
 
 

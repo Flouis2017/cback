@@ -19,7 +19,8 @@ import lombok.Getter;
 
 @Getter
 public enum OrderType {
-    LIMIT(0); // Immediate or Cancel - equivalent to strict-risk market order
+    LIMIT(0), // Immediate or Cancel - equivalent to strict-risk market order
+    OTHERS(1);
 
     private int type;
 
@@ -32,7 +33,8 @@ public enum OrderType {
             case 0:
                 return LIMIT;
             default:
-                throw new IllegalArgumentException("unknown OrderType:" + type);
+//                throw new IllegalArgumentException("unknown OrderType:" + type);
+                return OTHERS;
         }
     }
 

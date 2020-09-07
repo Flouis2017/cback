@@ -1,9 +1,6 @@
 package com.flouis.counter.vo;
 
-import com.flouis.common.usual.entity.order.CmdType;
-import com.flouis.common.usual.entity.order.OrderCmd;
-import com.flouis.common.usual.entity.order.OrderDirection;
-import com.flouis.common.usual.entity.order.OrderType;
+import com.flouis.common.usual.entity.order.*;
 import com.flouis.counter.entity.Order;
 
 public class CounterAdaptor {
@@ -18,6 +15,7 @@ public class CounterAdaptor {
 				.price(vo.getPrice())
 				.count(vo.getCount())
 				.orderType(OrderType.of(vo.getOrderType()))
+				.status(vo.getStatus())
 				.build();
 		return orderCmd;
 	}
@@ -30,6 +28,7 @@ public class CounterAdaptor {
 		order.setType(orderCmd.getOrderType().getType());
 		order.setPrice(orderCmd.getPrice());
 		order.setCount(orderCmd.getCount());
+		order.setStatus(orderCmd.getStatus());
 		return order;
 	}
 

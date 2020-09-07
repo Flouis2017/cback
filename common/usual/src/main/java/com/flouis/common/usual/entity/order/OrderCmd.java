@@ -2,12 +2,14 @@ package com.flouis.common.usual.entity.order;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
 @Builder
+@ToString
 public class OrderCmd implements Serializable {
 
     private CmdType cmdType;
@@ -47,6 +49,8 @@ public class OrderCmd implements Serializable {
      * 1.LIMIT
      */
     private OrderType orderType;
+
+    private Integer status;
 
     /**
      * 委托编号

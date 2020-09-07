@@ -26,22 +26,21 @@ public enum OrderStatus {
 
     NOT_SET(-1),
 
-    CANCEL_ED(1),
+    CANCELED(1),
     PART_CANCEL(2),
 
-    //    ORDER_STANDBY(3),
-    ORDER_ED(3),
+    ORDERED(3),
 
-    TRADE_ED(4),
+    TRADED(4),
     PART_TRADE(5),
 
     REJECT(6);
 
 
-    private int code;
+    private int status;
 
-    OrderStatus(int code) {
-        this.code = code;
+    OrderStatus(int status) {
+        this.status = status;
     }
 
 

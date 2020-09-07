@@ -21,4 +21,6 @@ public class OrderVo {
 
 	private Integer orderType;
 
+	private Integer status;
+
 }
