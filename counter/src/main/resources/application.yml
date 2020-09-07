@@ -50,6 +50,7 @@ cacheExpire:
 
 # 机器位置
 counter:
+    id: 10000
     # 机房id
     dataCenterId: 0
     # 机柜id

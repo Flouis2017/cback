@@ -6,7 +6,7 @@ import java.util.Date;
 public class Order {
     private Long id;
 
-    private Long uid;
+    private String uid;
 
     private String code;
 
@@ -30,11 +30,11 @@ public class Order {
         this.id = id;
     }
 
-    public Long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 

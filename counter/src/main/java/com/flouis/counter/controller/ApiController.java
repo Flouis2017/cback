@@ -4,6 +4,7 @@ import com.flouis.common.usual.entity.JsonResult;
 import com.flouis.counter.exception.BusinessException;
 import com.flouis.counter.service.ApiService;
 import com.flouis.counter.vo.DashboardVo;
+import com.flouis.counter.vo.OrderVo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,5 +52,15 @@ public class ApiController {
 		return JsonResult.success(this.apiService.stockSelect(uid, key));
 	}
 
+	/**
+	 * @description 下单——买入/卖出股票
+	 */
+	@RequestMapping("/order")
+	public JsonResult order(OrderVo vo){
+		if (this.apiService.order(vo)){
+			return JsonResult.success();
+		}
+		return JsonResult.fail();
+	}
 
 }

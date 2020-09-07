@@ -3,16 +3,20 @@ package com.flouis.counter.service;
 import com.flouis.common.redis.util.CacheType;
 import com.flouis.common.redis.util.RedisStringCache;
 import com.flouis.common.usual.entity.ResultCode;
+import com.flouis.common.usual.entity.order.OrderCmd;
 import com.flouis.common.usual.util.JsonUtil;
 import com.flouis.counter.cache.StockCache;
+import com.flouis.counter.dao.OrderMapper;
 import com.flouis.counter.dao.PosiMapper;
 import com.flouis.counter.dao.UserMapper;
+import com.flouis.counter.entity.Order;
 import com.flouis.counter.entity.Posi;
 import com.flouis.counter.entity.User;
 import com.flouis.counter.exception.BusinessException;
+import com.flouis.counter.vo.CounterAdaptor;
 import com.flouis.counter.vo.DashboardVo;
+import com.flouis.counter.vo.OrderVo;
 import com.flouis.counter.vo.StockInfo;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -32,6 +36,9 @@ public class ApiService {
 
 	@Resource
 	private PosiMapper posiMapper;
+
+	@Resource
+	private OrderMapper orderMapper;
 
 	@Resource
 	private StockCache stockCache;
@@ -92,4 +99,25 @@ public class ApiService {
 	public List<StockInfo> stockSelect(String uid, String key) {
 		return this.stockCache.getStocks(uid, key);
 	}
+
+	/**
+	 * @description 下单——买入/卖出
+	 */
+	public boolean order(OrderVo vo) {
+		OrderCmd orderCmd = CounterAdaptor.convert2OrderCmd(vo);
+		// 入库
+		Order order = CounterAdaptor.convert2Order(orderCmd);
+		int resInt = this.orderMapper.insertSelective(order);
+		if (resInt <= 0){
+			return false;
+		}
+
+		// 委托处理 todo
+
+
+
+
+		return true;
+	}
+
 }

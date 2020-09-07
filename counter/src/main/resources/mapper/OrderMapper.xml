@@ -3,7 +3,7 @@
 <mapper namespace="com.flouis.counter.dao.OrderMapper">
 	<resultMap id="BaseResultMap" type="com.flouis.counter.entity.Order">
 		<id column="id" jdbcType="BIGINT" property="id"/>
-		<result column="uid" jdbcType="BIGINT" property="uid"/>
+		<result column="uid" jdbcType="VARCHAR" property="uid"/>
 		<result column="code" jdbcType="VARCHAR" property="code"/>
 		<result column="direction" jdbcType="INTEGER" property="direction"/>
 		<result column="type" jdbcType="INTEGER" property="type"/>
@@ -57,7 +57,7 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="uid != null">
-				#{uid,jdbcType=BIGINT},
+				#{uid,jdbcType=VARCHAR},
 			</if>
 			<if test="code != null">
 				#{code,jdbcType=VARCHAR},
@@ -88,7 +88,7 @@
 		update t_order
 		<set>
 			<if test="uid != null">
-				uid = #{uid,jdbcType=BIGINT},
+				uid = #{uid,jdbcType=VARCHAR},
 			</if>
 			<if test="code != null">
 				code = #{code,jdbcType=VARCHAR},
